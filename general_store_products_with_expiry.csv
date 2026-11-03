@@ -1,0 +1,88 @@
+Name,Category,Price,Quantity,Low Stock Limit,Expiry Date
+Rice 1kg,Grocery,60,100,15,
+Wheat Flour 1kg,Grocery,45,80,15,2026-12-31
+Sugar 1kg,Grocery,48,90,15,
+Salt 1kg,Grocery,22,70,10,
+Toor Dal 1kg,Grocery,150,50,10,
+Moong Dal 1kg,Grocery,130,40,10,
+Chana Dal 1kg,Grocery,100,40,10,
+Urad Dal 1kg,Grocery,140,40,10,
+Rava 1kg,Grocery,48,50,10,2027-01-10
+Poha 500g,Grocery,40,40,8,2027-02-01
+Sunflower Oil 1L,Grocery,140,60,10,
+Groundnut Oil 1L,Grocery,190,30,6,
+Coconut Oil 500ml,Grocery,130,30,6,
+Ghee 500ml,Grocery,320,25,5,2027-04-30
+Mustard Seeds 100g,Spices,20,40,8,
+Jeera 100g,Spices,45,40,8,
+Turmeric Powder 100g,Spices,30,50,10,
+Red Chilli Powder 100g,Spices,40,50,10,
+Coriander Powder 100g,Spices,30,50,10,
+Garam Masala 50g,Spices,45,40,8,
+Sambar Powder 100g,Spices,50,40,8,
+Tamarind 250g,Spices,40,30,6,
+Tea Powder 250g,Beverages,120,50,10,2027-06-30
+Coffee Powder 200g,Beverages,160,30,6,2027-08-31
+Instant Coffee 50g,Beverages,150,25,5,
+Milk Packet 500ml,Dairy,27,60,15,2026-11-03
+Curd 400g,Dairy,35,40,10,2026-11-05
+Butter 100g,Dairy,58,30,6,2026-12-20
+Paneer 200g,Dairy,90,20,5,2026-11-08
+Eggs Tray 30,Dairy,180,10,3,2026-11-20
+Bread Loaf,Bakery,40,30,8,2026-11-04
+Biscuits Pack,Snacks,10,150,30,2027-03-01
+Cream Biscuits,Snacks,20,100,20,2027-02-15
+Potato Chips,Snacks,20,100,20,2026-12-30
+Namkeen Mixture 200g,Snacks,50,50,10,2027-01-15
+Chocolate Bar,Snacks,40,80,15,2027-04-10
+Chewing Gum,Snacks,5,200,40,
+Maggi Noodles,Snacks,14,120,25,2027-05-01
+Soft Drink 600ml,Beverages,40,80,15,2027-01-20
+Packaged Water 1L,Beverages,20,100,20,2027-06-01
+Fruit Juice 200ml,Beverages,20,60,12,2026-10-28
+Washing Soap Bar,Household,10,100,20,
+Detergent Powder 1kg,Household,120,40,8,
+Dishwash Liquid 500ml,Household,99,35,7,
+Dishwash Bar,Household,10,80,15,
+Floor Cleaner 500ml,Household,95,25,5,
+Toilet Cleaner 500ml,Household,90,25,5,
+Phenyl 500ml,Household,60,25,5,
+Bleach Powder 500g,Household,35,20,5,
+Matchbox,Household,2,300,50,
+Candles Pack,Household,30,40,8,
+Mosquito Coil,Household,25,50,10,
+Agarbatti Pack,Household,20,80,15,
+Garbage Bags Pack,Household,50,30,6,
+Scrub Pad,Household,10,60,12,
+Bath Soap,Personal Care,35,100,20,
+Shampoo Sachet,Personal Care,2,300,50,
+Shampoo Bottle 200ml,Personal Care,150,30,6,
+Toothpaste 100g,Personal Care,60,60,12,
+Toothbrush,Personal Care,25,60,12,
+Hair Oil 100ml,Personal Care,55,40,8,
+Talcum Powder 100g,Personal Care,70,25,5,
+Face Cream 50g,Personal Care,90,25,5,
+Razor Blade,Personal Care,10,100,20,
+Sanitary Pads,Personal Care,45,40,8,
+Deodorant,Personal Care,150,20,5,
+Notebook,Stationery,40,100,20,
+Pen,Stationery,10,200,40,
+Pencil,Stationery,5,200,40,
+Eraser,Stationery,5,150,30,
+Sharpener,Stationery,5,150,30,
+Geometry Box,Stationery,80,20,5,
+Glue Stick,Stationery,25,40,8,
+Cello Tape,Stationery,20,50,10,
+Stapler Pins,Stationery,15,40,8,
+Drawing Book,Stationery,30,40,8,
+Battery AA,Electricals,10,80,15,
+LED Bulb 9W,Electricals,80,40,8,
+Extension Board,Electricals,250,10,3,
+Torch,Electricals,150,15,4,
+Plastic Bucket,Household,120,15,4,
+Plastic Mug,Household,30,25,5,
+Steel Plate,Kitchenware,60,20,5,
+Water Bottle 1L,Kitchenware,80,25,5,
+Lunch Box,Kitchenware,150,15,4,
+Broom,Household,60,25,5,
+Mop,Household,150,12,3,

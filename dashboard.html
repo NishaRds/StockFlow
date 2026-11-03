@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StockFlow | Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <script>
+    (() => {
+      const users = JSON.parse(localStorage.getItem("sf_users") || "[]");
+      const session = localStorage.getItem("sf_session");
+      const user = users.find(u => String(u.id) === String(session));
+
+      if (!user) {
+        window.location.replace("index.html");
+      }
+    })();
+  </script>
+</head>
+<body>
+
+  <div class="app-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <div class="sidebar-logo">S</div>
+        <span>StockFlow</span>
+      </div>
+
+      <div class="sidebar-label">WORKSPACE</div>
+
+      <nav class="side-nav">
+        <button class="nav-link active" data-page="dashboard">
+          <span>◫</span> Dashboard
+        </button>
+        <button class="nav-link" data-page="products">
+          <span>▤</span> Inventory
+        </button>
+        <button class="nav-link" data-page="billing">
+          <span>▧</span> Billing
+        </button>
+        <button class="nav-link" data-page="customers">
+          <span>♙</span> Customers
+        </button>
+        <button class="nav-link" data-page="sales">
+          <span>↗</span> Sales History
+        </button>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="sidebar-user">
+          <div class="user-avatar" id="sidebarAvatar">S</div>
+          <div>
+            <strong id="sidebarOwner">Owner</strong>
+            <small id="sidebarShop">My Shop</small>
+          </div>
+        </div>
+        <button id="logoutBtn" class="logout-btn">↪ Logout</button>
+      </div>
+    </aside>
+    <div id="sidebarBackdrop" class="sidebar-backdrop"></div>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-area">
+
+      <header class="topbar">
+
+  <div class="topbar-left">
+    <button id="menuToggle" class="icon-button"
+      aria-label="Open navigation menu" aria-expanded="false">
+      ☰
+    </button>
+
+    <button id="homeBtn" class="icon-button" type="button"
+      aria-label="Go to Dashboard" title="Home">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg>
+    </button>
+
+    <div>
+      <p class="topbar-label">SHOP MANAGEMENT</p>
+      <h1 id="pageTitle">Dashboard</h1>
+    </div>
+  </div>
+
+  <div class="topbar-right">
+
+    <div class="shop-chip">
+      <span class="online-dot"></span>
+      <span id="topShopName">My Shop</span>
+    </div>
+
+    <div class="top-date" id="todayDate"></div>
+
+    <div class="settings-wrapper">
+      <button id="settingsToggle" class="icon-button"
+        aria-label="Open settings" aria-expanded="false">
+        ⚙
+      </button>
+
+      <div id="settingsPanel" class="settings-panel hidden">
+
+        <div class="settings-heading">
+          <strong>Appearance Settings</strong>
+          <button id="closeSettings" class="settings-close">×</button>
+        </div>
+
+        <div class="setting-group">
+          <label for="themeSelect">Theme</label>
+          <select id="themeSelect">
+            <option value="light">☀ Light Mode</option>
+            <option value="dark">☾ Dark Mode</option>
+            <option value="system">◐ System Default</option>
+          </select>
+        </div>
+
+        <div class="setting-group">
+          <label for="fontSizeSelect">Font Size</label>
+          <select id="fontSizeSelect">
+            <option value="small">Small</option>
+            <option value="medium">Medium</option>
+            <option value="large">Large</option>
+            <option value="extra-large">Extra Large</option>
+          </select>
+        </div>
+
+        <div class="setting-group">
+          <label for="fontStyleSelect">Font Style</label>
+          <select id="fontStyleSelect">
+            <option value="Arial">Arial</option>
+            <option value="Inter">Inter</option>
+            <option value="Poppins">Poppins</option>
+            <option value="Roboto">Roboto</option>
+          </select>
+        </div>
+
+        <p class="settings-note">Your preferences are saved automatically.</p>
+
+      </div>
+    </div>
+
+  </div>
+</header>
+
+      <div class="content-area">
+
+        <!-- DASHBOARD PAGE -->
+        <section id="page-dashboard" class="page-section">
+          <div class="welcome-row">
+            <div>
+              <h2>Good to see you, <span id="welcomeOwner">Owner</span>.</h2>
+              <p>Here's what's happening in your shop today.</p>
+            </div>
+            <button class="main-button" data-goto="billing">+ Create Bill</button>
+          </div>
+
+          <div class="stats-grid">
+            <button type="button" class="stat-card" data-dashboard-goto="products" aria-label="Open complete inventory">
+              <div class="stat-top">
+                <span class="stat-label">TOTAL PRODUCTS</span>
+                <span class="stat-icon green-icon">▤</span>
+              </div>
+              <strong id="statProducts">0</strong>
+              <small>Products in your inventory</small>
+            </button>
+
+            <button type="button" class="stat-card" data-dashboard-goto="products-low" aria-label="Open low stock inventory">
+              <div class="stat-top">
+                <span class="stat-label">LOW STOCK ITEMS</span>
+                <span class="stat-icon orange-icon">!</span>
+              </div>
+              <strong id="statLowStock">0</strong>
+              <small>Items need attention</small>
+            </button>
+
+            <button type="button" class="stat-card" data-dashboard-goto="customers" aria-label="Open customers">
+              <div class="stat-top">
+                <span class="stat-label">TOTAL CUSTOMERS</span>
+                <span class="stat-icon blue-icon">♙</span>
+              </div>
+              <strong id="statCustomers">0</strong>
+              <small>Registered customers</small>
+            </button>
+
+            <button type="button" class="stat-card" data-dashboard-goto="sales" aria-label="Open sales history">
+              <div class="stat-top">
+                <span class="stat-label">TOTAL SALES</span>
+                <span class="stat-icon purple-icon">₹</span>
+              </div>
+              <strong id="statSales">₹0.00</strong>
+              <small>All completed bills</small>
+            </button>
+          </div>
+
+          <div class="panel week-panel">
+            <div class="panel-heading">
+              <div><h3>Weekly Sales</h3><p>Products sold in the last 7 days</p></div>
+              <strong id="weekTotal"></strong>
+            </div>
+            <div id="weekChart"></div>
+          </div>
+
+          <div class="dashboard-grid">
+            <div class="panel">
+              <div class="panel-heading">
+                <div>
+                  <h3>Recent Sales</h3>
+                  <p>Your latest completed bills</p>
+                </div>
+                <button class="text-button" data-goto="sales">View all →</button>
+              </div>
+
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Bill ID</th>
+                      <th>Customer</th>
+                      <th>Amount</th>
+                      <th>Date</th>
+                    </tr>
+                  </thead>
+                  <tbody id="recentSalesBody">
+                    <tr><td colspan="4" class="empty-cell">No sales yet.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="panel">
+              <div class="panel-heading">
+                <div>
+                  <h3>Stock Alerts</h3>
+                  <p>Products running low</p>
+                </div>
+                <span class="alert-count" id="alertCount">0</span>
+              </div>
+              <div id="dashboardLowStock" class="alert-list">
+                <p class="empty-note">No low-stock products.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel expiry-panel">
+            <div class="panel-heading">
+              <div>
+                <h3>Expiring Soon</h3>
+                <p>Expired or expiring within 7 days</p>
+              </div>
+            </div>
+            <div id="dashboardExpiry" class="alert-list">
+              <p class="empty-note">No products expiring soon.</p>
+            </div>
+          </div>
+
+          <div class="stats-grid credit-stats-grid">
+            <div class="stat-card"><span class="stat-label">TOTAL OUTSTANDING UDHAR</span><strong id="dashboardOutstanding">₹0.00</strong><small>Unpaid customer balances</small></div>
+            <div class="stat-card"><span class="stat-label">CUSTOMERS WITH DUES</span><strong id="dashboardDueCustomers">0</strong><small>Customers with pending payments</small></div>
+            <div class="stat-card"><span class="stat-label">PAYMENTS RECEIVED</span><strong id="dashboardPaymentsReceived">₹0.00</strong><small>Collected across all bills</small></div>
+          </div>
+          <div class="panel pending-panel">
+            <div class="panel-heading">
+              <div>
+                <h3>Pending Payments</h3>
+                <p>Customers who still owe money</p>
+              </div>
+              <strong id="pendingTotal"></strong>
+            </div>
+            <div id="dashboardPending" class="alert-list">
+              <p class="empty-note">No pending payments.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- PRODUCTS PAGE -->
+        <section id="page-products" class="page-section hidden">
+          <div class="page-intro">
+            <div>
+              <h2>Inventory</h2>
+              <p>Keep track of every product and its available stock.</p>
+            </div>
+            <div>
+              <button class="main-button" id="importProductsBtn">⬆ Import CSV</button>
+              <button class="main-button" id="openAddProduct">+ Add Product</button>
+              <input type="file" id="importFile" accept=".csv" hidden>
+            </div>
+          </div>
+
+          <div class="toolbar">
+            <input id="productSearch" type="search" placeholder="Search products by name or category...">
+            <select id="categoryFilter" aria-label="Filter by category">
+              <option value="">All categories</option>
+            </select>
+          </div>
+
+          <div class="panel">
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Product</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Available Stock</th>
+                    <th>Low Stock Limit</th>
+                    <th>Status</th>
+                    <th>Expiry</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="productsBody">
+                  <tr><td colspan="8" class="empty-cell">No products added yet.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div id="productModal" class="modal hidden">
+            <div class="modal-card">
+              <div class="modal-heading">
+                <div>
+                  <h3 id="productModalTitle">Add New Product</h3>
+                  <p>Enter product information below.</p>
+                </div>
+                <button class="close-modal" data-close="productModal">×</button>
+              </div>
+
+              <form id="productForm">
+                <label for="productName">Product Name</label>
+                <input id="productName" required placeholder="e.g. Notebook">
+
+                <label for="productCategory">Category</label>
+                <input id="productCategory" required placeholder="e.g. Stationery">
+
+                <div class="two-fields">
+                  <div>
+                    <label for="productPrice">Price (₹)</label>
+                    <input id="productPrice" type="number" min="0.01" step="0.01" required>
+                  </div>
+                  <div>
+                    <label for="productQty">Initial Quantity</label>
+                    <input id="productQty" type="number" min="0" step="1" required>
+                  </div>
+                </div>
+
+                <label for="productLimit">Low Stock Alert Limit</label>
+                <input id="productLimit" type="number" min="0" step="1" value="5" required>
+
+                <label for="productExpiry">Expiry Date (optional)</label>
+                <input id="productExpiry" type="date">
+
+                <button type="submit" class="main-button full-button">Save Product</button>
+              </form>
+            </div>
+          </div>
+        </section>
+
+        <!-- BILLING PAGE -->
+        <section id="page-billing" class="page-section hidden">
+          <div class="page-intro">
+            <div>
+              <h2>Billing</h2>
+              <p>Create a bill and update your stock after checkout.</p>
+            </div>
+          </div>
+
+          <div class="billing-layout">
+            <div class="panel billing-products">
+              <div class="panel-heading">
+                <div>
+                  <h3>Select Products</h3>
+                  <p>Choose products to add to this bill.</p>
+                </div>
+              </div>
+
+              <input id="billingSearch" type="search" placeholder="Search available products...">
+              <select id="billingCategory" aria-label="Filter by category">
+                <option value="">All categories</option>
+              </select>
+              <div id="billingProductList" class="billing-product-list">
+                <p class="empty-note">No products available.</p>
+              </div>
+            </div>
+
+            <div class="panel cart-panel">
+              <div class="panel-heading">
+                <div>
+                  <h3>Current Bill</h3>
+                  <p id="cartItemCount">0 items</p>
+                </div>
+                <button class="text-button" id="clearCartBtn">Clear</button>
+              </div>
+
+              <label for="billCustomerName">Or type customer name <small>(also works for Udhar / Partial)</small></label>
+              <input id="billCustomerName" placeholder="e.g. Ramesh (optional)">
+
+              <label for="billCustomer">Customer <small>(required for Udhar / Partial)</small></label>
+              <select id="billCustomer"><option value="">Walk-in Customer</option></select>
+              <div id="billCreditCustomerBox" class="hidden">
+                <button type="button" class="text-button" id="billingAddCustomer">+ Add New Customer</button>
+              </div>
+
+              <label for="billPayment">Payment</label>
+              <select id="billPayment">
+                <option value="full">Full Payment</option>
+                <option value="later">Full Udhar</option>
+                <option value="partial">Partial Payment</option>
+              </select>
+
+              <div id="billPaidNowBox" class="hidden">
+                <label for="billPaidNow">Amount paid now (₹)</label>
+                <input id="billPaidNow" type="number" min="0" step="0.01" placeholder="Enter amount paid">
+                <small id="billPendingPreview">Pending Amount: ₹0.00</small>
+              </div>
+
+              <div id="cartItems" class="cart-items">
+                <p class="empty-note">Your bill is empty.</p>
+              </div>
+
+              <div class="bill-total">
+                <span>Total Amount</span>
+                <strong id="cartTotal">₹0.00</strong>
+              </div>
+
+              <button id="checkoutBtn" class="main-button full-button">Checkout & Generate Bill</button>
+              <div id="billingMessage" class="message hidden"></div>
+            </div>
+          </div>
+
+          <div id="receiptArea" class="panel receipt-panel hidden">
+            <div class="panel-heading">
+              <div>
+                <h3>Bill Generated</h3>
+                <p>Your transaction was completed successfully.</p>
+              </div>
+              <button id="printReceiptBtn" class="main-button">Print Receipt</button>
+            </div>
+            <div id="receiptContent"></div>
+          </div>
+        </section>
+
+        <!-- CUSTOMERS PAGE -->
+        <section id="page-customers" class="page-section hidden">
+          <div class="page-intro">
+            <div>
+              <h2>Customers</h2>
+              <p>Manage your regular and walk-in customers.</p>
+            </div>
+            <button class="main-button" id="openAddCustomer">+ Add Customer</button>
+          </div>
+
+          <div class="toolbar">
+            <input id="customerSearch" type="search" placeholder="Search customers...">
+          </div>
+
+          <div class="panel">
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Customer Name</th>
+                    <th>Phone Number</th>
+                    <th>Bills</th>
+                    <th>Total Purchases</th>
+                    <th>Total Paid</th>
+                    <th>Pending</th>
+                    <th>Payment Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="customersBody">
+                  <tr><td colspan="8" class="empty-cell">No customers added yet.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div id="customerModal" class="modal hidden">
+            <div class="modal-card">
+              <div class="modal-heading">
+                <div>
+                  <h3>Add Customer</h3>
+                  <p>Enter customer details.</p>
+                </div>
+                <button class="close-modal" data-close="customerModal">×</button>
+              </div>
+
+              <form id="customerForm">
+                <label for="customerName">Customer Name</label>
+                <input id="customerName" required placeholder="Enter customer name">
+
+                <label for="customerPhone">Phone Number</label>
+                <input id="customerPhone" type="tel" maxlength="10" required
+                  inputmode="numeric" pattern="[0-9]{10}" placeholder="10-digit phone number">
+
+                <button type="submit" class="main-button full-button">Save Customer</button>
+              </form>
+            </div>
+          </div>
+
+          <div id="customerHistoryModal" class="modal hidden">
+            <div class="modal-card history-card">
+              <div class="modal-heading">
+                <div>
+                  <h3 id="historyTitle">Customer</h3>
+                  <p id="historySub"></p>
+                </div>
+                <button class="close-modal" data-close="customerHistoryModal">×</button>
+              </div>
+
+              <div id="historySummary" class="history-summary"></div>
+              <button class="main-button hidden" id="historyReceiveBtn">Receive Payment</button>
+              <div id="historyPayments" class="payment-history"></div>
+
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Bill ID</th>
+                      <th>Date</th>
+                      <th>Items bought</th>
+                      <th>Amount</th>
+                      <th>Payment</th>
+                    </tr>
+                  </thead>
+                  <tbody id="historyBody"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SALES PAGE -->
+        <section id="page-sales" class="page-section hidden">
+          <div class="page-intro">
+            <div>
+              <h2>Sales History</h2>
+              <p>Review all completed transactions.</p>
+            </div>
+            <div>
+              <button class="main-button" id="openReportBtn">📄 Daily Report</button>
+              <button class="main-button" id="exportSalesBtn">⬇ Export to Excel</button>
+            </div>
+          </div>
+
+          <div id="reportArea" class="panel report-panel hidden">
+            <div class="panel-heading">
+              <div>
+                <h3>Daily Closing Report</h3>
+                <p>Pick a day, then print the report.</p>
+              </div>
+              <div class="report-tools">
+                <input type="date" id="reportDate">
+                <button class="main-button" id="printReportBtn">Print Report</button>
+                <button class="text-button" id="closeReportBtn">Close</button>
+              </div>
+            </div>
+            <div id="reportContent"></div>
+          </div>
+
+          <div class="sales-summary">
+            <div class="panel summary-box">
+              <span>Total Completed Bills</span>
+              <strong id="salesBillCount">0</strong>
+            </div>
+            <div class="panel summary-box">
+              <span>Total Revenue</span>
+              <strong id="salesRevenue">₹0.00</strong>
+            </div>
+          </div>
+
+          <div class="toolbar">
+            <input id="salesSearch" type="search" placeholder="Search by bill ID or customer...">
+          </div>
+
+          <div class="panel">
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Bill ID</th>
+                    <th>Customer</th>
+                    <th>Items</th>
+                    <th>Amount</th>
+                    <th>Payment</th>
+                    <th>Staff</th>
+                    <th>Date & Time</th>
+                    <th>Receipt</th>
+                  </tr>
+                </thead>
+                <tbody id="salesBody">
+                  <tr><td colspan="8" class="empty-cell">No sales recorded yet.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

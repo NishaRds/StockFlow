@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StockFlow | Shop Management</title>
+  <link rel="stylesheet" href="auth.css">
+</head>
+<body class="auth-body">
+
+  <main class="auth-layout">
+    <section class="auth-brand">
+      <div class="brand-mark">S</div>
+      <p class="brand-name">StockFlow</p>
+      <h1>Your shop.<br>Your numbers.<br>Under control.</h1>
+      <p class="brand-description">
+        A simple way to manage your products, stock, customers and daily sales.
+      </p>
+      <div class="brand-footer">A better way to run your business.</div>
+    </section>
+
+    <section class="auth-panel">
+      <div class="language-picker">
+  <span>🌐</span>
+  <select id="languageSelect" aria-label="Choose language">
+    <option value="en">English</option>
+    <option value="kn">ಕನ್ನಡ</option>
+    <option value="hi">हिन्दी</option>
+  </select>
+</div>
+
+      <!-- LOGIN -->
+      <section id="view-login" class="auth-view">
+        <span class="eyebrow">WELCOME BACK</span>
+        <h2>Sign in to your shop</h2>
+        <p class="muted">Enter your account details to continue.</p>
+
+        <div id="authMessage" class="message hidden"></div>
+
+        <form id="loginForm">
+          <label for="loginId">Username or email</label>
+          <input id="loginId" type="text" placeholder="Enter username or email" required>
+
+          <label for="loginPass">Password</label>
+          <input id="loginPass" type="password" placeholder="Enter your password" required>
+
+          <div class="form-extra">
+            <a href="#" id="showForgot">Forgot password?</a>
+          </div>
+
+          <button type="submit" class="primary-btn">Login to StockFlow</button>
+        </form>
+
+        <p class="auth-switch">
+          <span id="newAccountText">New to StockFlow?</span>
+          <a href="#" id="showRegister">Create an account</a>
+        </p>
+
+      </section>
+
+      <!-- REGISTER -->
+      <section id="view-register" class="auth-view hidden">
+        <a href="#" id="registerTopBack" class="back-link">← Back to login</a>
+        <span class="eyebrow">CREATE YOUR ACCOUNT</span>
+        <h2>Create your shop account</h2>
+
+        <div class="register-tabs">
+          <button type="button" class="register-tab active" data-step="0">
+            <span>01</span> Basic Details
+          </button>
+          <button type="button" class="register-tab" data-step="1">
+            <span>02</span> Contact Details
+          </button>
+          <button type="button" class="register-tab" data-step="2">
+            <span>03</span> Account Details
+          </button>
+        </div>
+
+        <div id="registerMessage" class="message hidden"></div>
+
+        <form id="registerForm">
+
+          <!-- STEP 1 -->
+          <div class="register-step" data-step-panel="0">
+            <h3>Basic Details</h3>
+
+            <label for="shopName">Shop Name</label>
+            <input id="shopName" type="text" placeholder="Enter shop name" required>
+
+            <label for="ownerName">Owner Name</label>
+            <input id="ownerName" type="text" placeholder="Enter owner's name" required>
+
+            <label for="shopType">Shop Type</label>
+            <select id="shopType" required>
+              <option value="">Choose shop type</option>
+              <option>Grocery</option>
+              <option>Medical</option>
+              <option>Stationery</option>
+              <option>Clothing</option>
+              <option>Electronics</option>
+              <option>General Store</option>
+              <option>Other</option>
+            </select>
+
+            <button type="button" class="primary-btn step-next" data-next="1">
+              Continue <span>→</span>
+            </button>
+          </div>
+
+          <!-- STEP 2 -->
+          <div class="register-step hidden" data-step-panel="1">
+            <h3>Contact Details</h3>
+
+            <label for="ownerPhone">Owner's Phone Number</label>
+            <input id="ownerPhone" type="tel" maxlength="10"
+              inputmode="numeric" placeholder="10-digit phone number" required>
+
+            <label for="phone">Shop Contact Number</label>
+            <input id="phone" type="tel" maxlength="10"
+              inputmode="numeric" placeholder="10-digit shop number" required>
+
+            <label for="address">Shop Address</label>
+            <textarea id="address" rows="3"
+              placeholder="Enter complete shop address" required></textarea>
+
+            <label for="pincode">Pincode</label>
+            <input id="pincode" type="text" maxlength="6"
+              inputmode="numeric" placeholder="6-digit pincode" required>
+
+            <div class="step-actions">
+              <button type="button" class="secondary-btn step-back" data-back="0">← Back</button>
+              <button type="button" class="primary-btn step-next" data-next="2">Continue →</button>
+            </div>
+          </div>
+
+          <!-- STEP 3 -->
+          <div class="register-step hidden" data-step-panel="2">
+            <h3>Account Details</h3>
+
+            <label for="email">Email Address</label>
+            <input id="email" type="email" placeholder="you@example.com" required>
+
+            <label for="username">Username</label>
+            <input id="username" type="text" placeholder="Create a username" required>
+
+            <label for="regPass">Password</label>
+            <input id="regPass" type="password" minlength="6"
+              placeholder="At least 6 characters" required>
+
+            <label for="regConfirm">Confirm Password</label>
+            <input id="regConfirm" type="password"
+              placeholder="Enter password again" required>
+
+            <div class="step-actions">
+              <button type="button" class="secondary-btn step-back" data-back="1">← Back</button>
+              <button type="submit" class="primary-btn">Create Account</button>
+            </div>
+          </div>
+        </form>
+
+        <p class="auth-switch">
+          <span id="alreadyAccountText">Already have an account?</span>
+          <a href="#" id="showLogin">Login</a>
+        </p>
+      </section>
+
+      <!-- FORGOT PASSWORD -->
+      <section id="view-forgot" class="auth-view hidden">
+        <span class="eyebrow">ACCOUNT RECOVERY</span>
+        <h2>Reset your password</h2>
+        <p class="muted">Enter your registered email address.</p>
+
+        <div id="forgotMessage" class="message hidden"></div>
+
+        <form id="forgotForm">
+          <label for="forgotEmail">Email Address</label>
+          <input id="forgotEmail" type="email" placeholder="Enter registered email" required>
+
+          <button type="submit" class="primary-btn">Generate reset code</button>
+        </form>
+
+        <div id="resetArea" class="hidden">
+          <label for="resetCode">Reset Code</label>
+          <input id="resetCode" type="text" placeholder="Enter reset code">
+
+          <label for="newPassword">New Password</label>
+          <input id="newPassword" type="password" placeholder="New password">
+
+          <label for="confirmNewPassword">Confirm New Password</label>
+          <input id="confirmNewPassword" type="password" placeholder="Confirm new password">
+
+          <button type="button" id="resetPasswordBtn" class="primary-btn">
+            Update Password
+          </button>
+        </div>
+
+        <p class="auth-switch">
+          <a href="#" id="backToLogin">← Back to login</a>
+        </p>
+      </section>
+
+    </section>
+  </main>
+
+  <script src="auth.js"></script>
+</body>
+</html>
